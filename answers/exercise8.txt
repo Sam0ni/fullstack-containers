@@ -1,0 +1,62 @@
+sudo docker exec -it todo-backend-mongo-1 bash
+root@ee80d1239496:/# mongosh -u root -p example
+Current Mongosh Log ID:	69c2c5ea73d9190096d805da
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.8.1
+Using MongoDB:		8.2.6
+Using Mongosh:		2.8.1
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-03-24T17:06:42.412+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2026-03-24T17:06:43.583+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-03-24T17:06:43.583+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-03-24T17:06:43.583+00:00: We suggest setting the contents of sysfsFile to 0.
+------
+
+test> show dbs
+admin         100.00 KiB
+config        100.00 KiB
+local          64.00 KiB
+the_database   56.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('69c2bdf6428017cb8cd805db'),
+    text: 'this is a modified todo',
+    done: false
+  },
+  {
+    _id: ObjectId('69c2bdf6428017cb8cd805dc'),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+the_database> db.todos.insertOne({text:"Increase the number of tools in my tool belt", done: false})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69c2c6de73d9190096d805db')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('69c2bdf6428017cb8cd805db'),
+    text: 'this is a modified todo',
+    done: false
+  },
+  {
+    _id: ObjectId('69c2bdf6428017cb8cd805dc'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('69c2c6de73d9190096d805db'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
