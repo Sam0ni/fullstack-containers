@@ -20,12 +20,12 @@ router.get("/statistics", async (req, res) => {
   const number_of_todos = await redis.get("added_todos")
   if (number_of_todos != null) {
       const stats = {
-      "added_todos": number_of_todos
+      "added_todos": parseInt(number_of_todos)
     }
     res.send(stats)
   } else {
     const stats = {
-      "added_todos": "0"
+      "added_todos": 0
     }
     res.send(stats)
     await redis.set("added_todos", 0)
