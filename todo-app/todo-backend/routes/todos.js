@@ -16,7 +16,11 @@ router.post('/', async (req, res) => {
     done: false
   })
 
-  const old_stats = await redis.get("added_todos")
+  let old_stats = await redis.get("added_todos")
+
+  if (old_stats == null) {
+    old_stats = 0;
+  }
 
   await redis.set("added_todos", parseInt(old_stats) + 1)
   res.send(todo);
