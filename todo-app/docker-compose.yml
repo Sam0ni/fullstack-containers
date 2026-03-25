@@ -18,8 +18,6 @@ services:
       - ./todo-backend/redis_data:/data
   backend:
     image: todo-backend
-    volumes:
-      - ./todo-backend/:/usr/src/app
     container_name: todo-backend
     environment:
       - REDIS_URL=redis://redis:6379
